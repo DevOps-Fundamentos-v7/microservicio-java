@@ -15,10 +15,18 @@ jobs:
           distribution: 'temurin'
       
       
-      - name: Compilar codigo
-        run: |
-          mvn clean package     
-
+      # - name: Compilar codigo
+      #   run: |
+      #     mvn clean package     
+      - name: Generate Coverage Report
+        run: mvn clean verify
+      
+      - name: Archive Jacoco reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: jacoco-reports
+          path: test-coverage/target/site/jacoco-aggregate
+      
       - name: Pruebas Unitarias
         run: mvn test
 
