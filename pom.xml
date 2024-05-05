@@ -55,11 +55,13 @@
 			    <version>0.8.12</version>
 		            <executions>
 				<execution>
-				<id>default-report</id>
-				<phase>test</phase>
+				<id>pre-unit-test</id>
 				<goals>
-				<goal>report</goal>
+				<goal>prepare-agent</goal>
 				</goals>
+				<configuration>
+					<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+				</configuration>
 				</execution>
 			        <execution>
 					<id>default-check</id>
@@ -81,6 +83,17 @@
 				</rules>
 				</configuration>
 		                </execution>
+				    <execution>
+                <id>post-unit-test</id>
+                <phase>test</phase>
+                <goals>
+                  <goal>report</goal>
+                </goals>
+                <configuration>
+                  <dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+                  <outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+                </configuration>
+              </execution>
 		            </executions>
 				</plugin>
 				<plugin>
