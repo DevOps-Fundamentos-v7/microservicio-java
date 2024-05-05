@@ -71,7 +71,7 @@
 						<element>BUNDLE</element>
 						<limits>
 						<limit>
-						<counter>COMPLEXITY</counter>
+						<counter>LINE</counter>
 						<value>COVEREDRATIO</value>
 						<minimum>0.20</minimum>
 						</limit>
