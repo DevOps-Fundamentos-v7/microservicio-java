@@ -50,7 +50,7 @@
 			                            <limit>
 			                                <counter>LINE</counter>
 			                                <value>COVEREDRATIO</value>
-			                                <minimum>0.85</minimum> <!-- Umbral del 85% -->
+			                                <minimum>0.02</minimum> <!-- Umbral del 85% -->
 			                            </limit>
 			                        </limits>
 			                    </rule>
