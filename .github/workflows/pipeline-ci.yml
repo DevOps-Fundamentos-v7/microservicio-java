@@ -17,7 +17,7 @@ jobs:
       
       - name: Compilar codigo
         run: |
-          mvn package     
+          mvn clean package     
 
       - name: Pruebas Unitarias
         run: mvn test
