@@ -19,16 +19,17 @@ jobs:
       #   run: |
       #     mvn clean package     
       - name: Generate Coverage Report
-        run: mvn clean package
+        run: |
+          mvn clean package
       
       - name: Archive Jacoco reports
         uses: actions/upload-artifact@v4
         with:
           name: jacoco-reports
-          path: test-coverage/target/site/jacoco-aggregate
+          path: target/site/jacoco/index.html
       
-      - name: Pruebas Unitarias
-        run: mvn test
+      # - name: Pruebas Unitarias
+      #   run: mvn test
 
       - name: Setup Java JDK 17
         uses: actions/setup-java@v4.2.1
