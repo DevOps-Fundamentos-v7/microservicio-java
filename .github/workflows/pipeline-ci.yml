@@ -22,12 +22,10 @@ jobs:
         run: |
           mvn clean verify
           
+      - name: Revisar carpeta
+        run: |
+          ls jacoco
       
-      - name: Archive Jacoco reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-reports
-          path: jacoco/index.html
       
       # - name: Pruebas Unitarias
       #   run: mvn test
