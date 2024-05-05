@@ -17,8 +17,4 @@ jobs:
       
       - name: Compilar codigo
         run: |
-          mvn package
-
-      - name: Build with Gradle
-        uses: gradle/actions@v3.3.2
-      
+          mvn package        
