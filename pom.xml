@@ -16,7 +16,7 @@
 
 	<properties>
 		<java.version>1.8</java.version>
-		<jacoco.report.coverage.ratio.required>0.10</jacoco.report.coverage.ratio.required>
+		
 	</properties>
 
 	<dependencies>
@@ -32,8 +32,8 @@
 		</dependency>
 		<dependency>
 		    <groupId>org.jacoco</groupId>
-		    <artifactId>jacoco</artifactId>
-		    <version>0.8.12</version>
+		    <artifactId>jacoco-maven-plugin</artifactId>
+		    <version>0.8.13-SNAPSHOT</version>
 		</dependency>
 		
 	</dependencies>
@@ -47,7 +47,7 @@
 			<plugin>
 		                <groupId>org.jacoco</groupId>
 		                <artifactId>jacoco-maven-plugin</artifactId>
-		                <version>0.8.12</version> <executions>
+		                <version>0.8.13-SNAPSHOT</version>
 		                    <execution>
 		                        <goals>
 		                            <goal>prepare-agent</goal>
