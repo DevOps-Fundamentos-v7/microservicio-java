@@ -20,13 +20,13 @@ jobs:
       #     mvn clean package     
       - name: Generate Coverage Report
         run: |
-          mvn clean verify
+          mvn clean test jacoco:report
       
       - name: Upload a Build Artifact
         uses: actions/upload-artifact@v4.3.3
         with:
           name: Reporte Jacoco
-          path: target/jacoco.exec
+          path: target/*
         
       
       # - name: Pruebas Unitarias
