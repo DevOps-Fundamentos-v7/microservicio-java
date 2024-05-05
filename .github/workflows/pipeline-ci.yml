@@ -20,7 +20,7 @@ jobs:
           mvn package     
 
       - name: Pruebas Unitarias
-        run: mvn clean test jacoco:report
+        run: mvn test
 
       - name: Setup Java JDK 17
         uses: actions/setup-java@v4.2.1
