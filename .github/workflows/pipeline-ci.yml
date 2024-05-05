@@ -20,8 +20,8 @@ jobs:
       #     mvn clean package     
       - name: Generate Coverage Report
         run: |
-          mvn clean package
-          ls jacoco
+          mvn clean verify
+          
       
       - name: Archive Jacoco reports
         uses: actions/upload-artifact@v4
