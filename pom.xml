@@ -86,10 +86,10 @@
 <configuration>
 <rules>
 <rule>
-<element>CLASS</element>
+<element>BUNDLE</element>
 <limits>
 <limit>
-<counter>LINE</counter>
+<counter>METHOD</counter>
 <value>COVEREDRATIO</value>
 <minimum>0.10</minimum>
 </limit>
