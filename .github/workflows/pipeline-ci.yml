@@ -18,15 +18,15 @@ jobs:
       # - name: Compilar codigo
       #   run: |
       #     mvn clean package     
-      - name: Generate Coverage Report
+      - name: Compilar y Testing
         run: |
           mvn clean test jacoco:report
       
-      - name: Upload a Build Artifact
+      - name: Cargar reportes Jacoco como 
         uses: actions/upload-artifact@v4.3.3
         with:
           name: Reporte Jacoco
-          path: target/*
+          path: target/site/jacoco/index.html
         
       
       # - name: Pruebas Unitarias
@@ -38,10 +38,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-       # - name: Analisis SonarCloud
-      #   run: |
-      #     mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-      #       -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-      #       -Dsonar.host.url=https://sonarcloud.io \
-      #       -Dsonar.organization=devops-lab-final \
-      #       -Dsonar.projectKey=devOps-lab-final_ms-aumento-voto
+      - name: Analisis SonarCloud
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.organization=devops-lab-final \
+            -Dsonar.projectKey=devOps-lab-final_microservicio-java
