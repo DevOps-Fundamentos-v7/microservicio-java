@@ -7,6 +7,21 @@ jobs:
     steps:
       - name: Clonacion de codigo
         uses: actions/checkout@v4    # Checkout
+      #compilo con java 8 
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+      - name: Compilacion
+        run: |
+          mvn package
+          #echo 'package'
+      - name: Ejecucion Test Unitario
+        run: |
+          mvn package test
+          
+       # compilo de nuevo para sonarcloud 
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
         with:
@@ -16,13 +31,14 @@ jobs:
         run: |
           mvn package
           #echo 'package'
-      #- name: Analisis SonarCloud
-        #run: |
-          #mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-          #-Dsonar.token=${{secrets.SONAR_TOKEN}} \
-          #-Dsonar.host.url=https://sonarcloud.io \
-          #-Dsonar.organization=usach\
-          #-Dsonar.projectKey=usach_ms-aumento-voto
+      - name: Analisis SonarCloud
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+          -Dsonar.token=${{secrets.SONAR_TOKEN}} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=usach\
+          -Dsonar.projectKey=microservicio-java
+          
       - name: Docker Login
         uses: docker/login-action@v3.1.0
         with:
