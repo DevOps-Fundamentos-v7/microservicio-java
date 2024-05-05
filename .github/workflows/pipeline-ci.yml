@@ -1,0 +1,90 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    
+      - name: Clonacion de codigo
+        uses: actions/checkout@v4
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+
+      - name: Compilacion
+        run: |
+          mvn package
+          #echo 'package'
+
+      - name: EjecucionTestUnitarios
+        run: |
+          mvn package test
+
+      - name: Generar informe JaCoCo
+        run: |
+          mvn jacoco:report
+
+      - name: Publicar informe JaCoCo
+        uses: madrapps/jacoco-report@v1.6.1
+        with:
+          paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml
+          token: ${{ secrets.TOKEN}}
+
+
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          
+      - name: Analisis SonarCloud
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+          -Dsonar.token=${{secrets.SONAR_TOKEN}} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=dusankm \
+          -Dsonar.projectKey=dusankm_ms-aumento-voto
+
+      - name: SonarQube Quality Gate Check
+        env:
+          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+        uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
+        with:
+          scanMetadataReportFile: target/sonar/report-task.txt
+          
+      - name: Docker Login
+        uses: docker/login-action@v3.1.0
+        with:
+          username: dusankm95@gmail.com
+          password: ${{ secrets.DOCKER_SECRET }}
+
+      - name: Docker build
+        run: 
+          docker build -t dusankm/ms-aumento-voto:lates .
+
+      - name: Docker push
+        run: 
+          docker push dusankm/ms-aumento-voto:lates
+
+  #deploy:
+   # needs: build
+    #runs-on: self-hosted
+
+    #steps: 
+     #   - name: Clonacion de codigo
+      #    uses: actions/checkout@v4
+          
+        
+          
+
+
+  
