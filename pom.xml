@@ -89,7 +89,7 @@
 <element>CLASS</element>
 <limits>
 <limit>
-<counter>INSTRUCTION</counter>
+<counter>LINE</counter>
 <value>COVEREDRATIO</value>
 <minimum>0.10</minimum>
 </limit>
