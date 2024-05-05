@@ -37,7 +37,7 @@ jobs:
         uses: madrapps/jacoco-report@v1.6.1
         with:
           paths: ${{ github.workspace }}/**/target/site/jacoco/jacoco.xml
-          token: ${{ secrets.TOKEN}}
+          token: ${{ secrets.SECRET_JACOCO}}
 
 
       - name: Setup Java JDK
@@ -49,14 +49,14 @@ jobs:
       - name: Analisis SonarCloud
         run: |
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
-          -Dsonar.token=${{secrets.SONAR_TOKEN}} \
+          -Dsonar.token=${{secrets.SECRET_SONAR}} \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.organization=dusankm \
-          -Dsonar.projectKey=dusankm_ms-aumento-voto
+          -Dsonar.projectKey=dusankm_microservicio-java
 
       - name: SonarQube Quality Gate Check
         env:
-          SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+          SONAR_TOKEN: ${{secrets.SECRET_SONAR}}
         uses: SonarSource/sonarqube-quality-gate-action@v1.1.0
         with:
           scanMetadataReportFile: target/sonar/report-task.txt
@@ -64,16 +64,16 @@ jobs:
       - name: Docker Login
         uses: docker/login-action@v3.1.0
         with:
-          username: dusankm95@gmail.com
-          password: ${{ secrets.DOCKER_SECRET }}
+          username: ${{ secrets.EMAIL_DOCKER }}
+          password: ${{ secrets.SECRET_DOCKER }}
 
       - name: Docker build
         run: 
-          docker build -t dusankm/ms-aumento-voto:lates .
+          docker build -t dusankm/microservicio-java:lates .
 
       - name: Docker push
         run: 
-          docker push dusankm/ms-aumento-voto:lates
+          docker push dusankm/microservicio-java:lates
 
   #deploy:
    # needs: build
