@@ -68,3 +68,14 @@ jobs:
       - name: Docker push
         run: |
           docker push estebanignacio/microservicio-java:latest
+    
+  deploy:
+      needs: build
+      runs-on: self-hosted
+      steps:
+        - name: Despliegue
+          run: |
+            echo "despliege"
+      
+    
+        
