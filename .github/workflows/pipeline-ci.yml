@@ -11,7 +11,7 @@ jobs:
       - name: Setup Java JDK
         uses: actions/setup-java@v4.2.1
         with:
-          java-version: '17'
+          java-version: '8'
           distribution: 'temurin'
       
       
@@ -20,7 +20,7 @@ jobs:
       #     mvn clean package     
       - name: Compilar y Testing
         run: |
-          mvn clean test jacoco:report
+          mvn clean package jacoco:report
       
       - name: Cargar reportes Jacoco como 
         uses: actions/upload-artifact@v4.3.3
