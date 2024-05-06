@@ -73,9 +73,12 @@ jobs:
       needs: build
       runs-on: self-hosted
       steps:
+        - name: Clonar repo
+          uses: actions/checkout@v4
+          
         - name: Despliegue
           run: |
-            echo "despliege"
+            kubectl apply -f deploy.yaml
       
     
         
