@@ -12,11 +12,11 @@ jobs:
    steps:
 
      - name: Clonacion de codigo
-     - uses: actions/checkout@v4
+       uses: actions/checkout@v4
 
      - name: Setup Java JDK
-     - uses: actions/setup-java@v4.2.1
-     - with:
+       uses: actions/setup-java@v4.2.1
+       with:
         java-version: '8'
         distribution: 'temurin'
 
