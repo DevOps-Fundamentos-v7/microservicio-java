@@ -40,5 +40,5 @@ jobs:
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
           -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=maspee \
-          -Dsonar.projectKey=maspee_microservicio-java
+          -Dsonar.organization:maspee \
+          -Dsonar.projectKey:maspee_microservicio-java
