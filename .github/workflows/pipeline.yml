@@ -35,6 +35,15 @@ jobs:
         java-version: '17'
         distribution: 'temurin'     
 
+      - name: Generate JaCoCo report
+        run: mvn jacoco:report
+
+      - name: Publish JaCoCo report
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/index.html
+
      - name: Analisis SonarCloud
         run:|
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
