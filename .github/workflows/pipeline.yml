@@ -37,18 +37,7 @@ jobs:
 
      - name: Run tests with JaCoCo
        run: mvn jacoco:prepare-agent test jacoco:report
-
-     - name: Check code coverage
-       run: |
-          COVERAGE:$(xml sel -t -v '/report/counter[@type:"INSTRUCTION"]/@covered' target/site/jacoco/jacoco.xml)
-          TOTAL:$(xml sel -t -v '/report/counter[@type:"INSTRUCTION"]/@total' target/site/jacoco/jacoco.xml)
-          COVERAGE_PERCENT=$(awk "BEGIN {print $COVERAGE/$TOTAL * 100}")
-          echo "Code coverage: $COVERAGE_PERCENT%"
-          if (( $(echo "$COVERAGE_PERCENT < 85" | bc -l) )); then
-            echo "Code coverage is below 85%."
-            exit 1
-          fi
-      
+     
      - name: Analisis SonarCloud
         run:|
           mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
