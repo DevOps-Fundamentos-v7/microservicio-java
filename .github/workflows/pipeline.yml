@@ -40,8 +40,8 @@ jobs:
 
      - name: Check code coverage
        run: |
-          COVERAGE=$(xml sel -t -v '/report/counter[@type="INSTRUCTION"]/@covered' target/site/jacoco/jacoco.xml)
-          TOTAL=$(xml sel -t -v '/report/counter[@type="INSTRUCTION"]/@total' target/site/jacoco/jacoco.xml)
+          COVERAGE:$(xml sel -t -v '/report/counter[@type="INSTRUCTION"]/@covered' target/site/jacoco/jacoco.xml)
+          TOTAL:$(xml sel -t -v '/report/counter[@type="INSTRUCTION"]/@total' target/site/jacoco/jacoco.xml)
           COVERAGE_PERCENT=$(awk "BEGIN {print $COVERAGE/$TOTAL * 100}")
           echo "Code coverage: $COVERAGE_PERCENT%"
           if (( $(echo "$COVERAGE_PERCENT < 85" | bc -l) )); then
