@@ -9,11 +9,15 @@
 name: Pipeline-tarea
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "feature/devops-test" ]
   pull_request:
     branches: [ "feature/devops-test" ]
-
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   build:
 
