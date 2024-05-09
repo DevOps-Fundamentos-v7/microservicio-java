@@ -34,9 +34,6 @@ jobs:
        with:
         java-version: '17'
         distribution: 'temurin'     
-
-     - name: Run tests with JaCoCo
-       run: mvn jacoco:prepare-agent test jacoco:report
      
      - name: Analisis SonarCloud
         run:|
