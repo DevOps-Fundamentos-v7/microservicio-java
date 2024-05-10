@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+  
+jobs:
+
+  build:
+  
+    runs-on: ubuntu-latest
+  
+    steps:
+    
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Java JDK
+        uses: actions/setup-java@v4.2.1
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          
+      - name: Compilacion
+        run: |
+          mvn package
+          
+      - name: Ejecucion Test Unitarios
+        run: |
+          mvn package test
+          
+      - name: ejecución de pruebas
+        run: |
+          mvn pdf:pdf
+          
+      - name: crear reporte de jacoco
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: target/
+          
+      - name: configuracion de java para sonar
+        uses: actions/setup-java@main
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Analisis SonarCloud
+        run: |
+          mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.organization=paulovegaa \
+          -Dsonar.projectKey=paulovegaa_microservicio-java
+      #- name: SonarQube Quality Gate Check
+        #uses: 
+      - name: Docker Login
+        uses: docker/login-action@v3.1.0
+        with:
+          username: paulovegaa
+          password: ${{ secrets.DOCKER_PASS }}
+      - name: Docker Build 
+        run: |
+          docker build -t paulovegaa/microservicio-java:latest .
+      - name: Docker push 
+        run: |
+          docker push paulovegaa/microservicio-java
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Clonacion de repositorio para deploy
+        uses: actions/checkout@v3
+      - name: Despliegue local
+        run: |
+          kubectl apply -f deploy.yaml
