@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microservicio-java
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: microservicio-java
+  template:
+    metadata:
+      labels:
+        app: microservicio-java
+    spec:
+      containers:
+      - name: microservicio-java
+        image: dantonbustos/microservicio-java:latest
+        ports:
+        - containerPort: 8080
